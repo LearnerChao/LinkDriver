@@ -1,52 +1,97 @@
-<head>
-  <title>LinkDriver</title>
-</head>
-
-<body>
-  <h1>Welcome to LinkDriver</h1>
-
-  {{> configForm}}
-</body>
-
 <template name="configForm">
-  <form id="">
-    <div>
-      <label>Username</label>
-      <input type="text" id="username" name="username"/>
-    </div>
-    <div>
-      <label>Password</label>
-      <input type="password" id="passwrod" name="password"/>
-    </div>
-    <div>
-      <label>Keywords</label>
-      <input type="text" id="keywords" name="keywords">
-    </div>
-    <div>
-      <label>Filters</label>
-    </div>
-    <div>
-      <label>Type of Connection</label>
-      <select name="type">
-        <option value="People">People</option>
-        <option value="Companies">Companies</option>
-      </select>
-    </div>
-    <div>
-      <label>Relationship to check</label>
-      <div>
-        <input class="relationship" type="checkbox" name="relationshipToCheck" value="1" {{isChecked}}/> 1st Connections<br>
-        <input class="relationship" type="checkbox" name="relationshipToCheck" value="2" {{isChecked}}/> 2nd Connections<br>
-        <input class="relationship" type="checkbox" name="relationshipToCheck" value="3" {{isChecked}}/> 3rd Connections<br>
-        <input class="relationship" type="checkbox" name="relationshipToCheck" value="g" {{isChecked}}/> Group Members<br>
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Link Driver</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Account</a></li>
+          </ul>
       </div>
     </div>
-    <div>
-      <label>Location</label>
-      <select name="location">
-        <option value="us:0-G-ffs">United States</option>
-      </select>
+  </div>
+  <div class="container">
+    <div class="banner">
+      <h1 class="banner-content">Set configuration to start adding connections</h1>
     </div>
-    <button type="submit">Submit</button>
-  </form>
+    <div class="form-container">
+      <form id="">
+        <!-- <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" class="input-field form-control" name="username"/>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="passwrod" class="input-field form-control" name="password"/>
+        </div> -->
+        <div class="form-group">
+          <label class="control-label" for="keywords">Key Words:</label>
+          <input type="text" id="keywords" class="input-field form-control" name="keywords">
+        </div>
+        <div class="form-group">
+          <label class="control-label">Filters</label>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="type">Type of Connection:</label>
+          <select name="type" class="select">
+            <option value="People">People</option>
+            <option value="Companies">Companies</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="relationshipToCheck">Relationship to check</label>
+          <div>
+            <div class="checkbox">
+              <label><input class="relationship" type="checkbox" name="relationshipToCheck" value="1" {{isChecked}}/> 1st Connections<br></label>
+            </div>
+            <div class="checkbox">
+              <label><input class="relationship checkbox" type="checkbox" name="relationshipToCheck" value="2" {{isChecked}}/> 2nd Connections<br></label>
+            </div>
+            <div class="checkbox">
+              <label><input class="relationship checkbox" type="checkbox" name="relationshipToCheck" value="3" {{isChecked}}/> 3rd Connections<br></label>
+            </div>
+            <div class="checkbox">
+              <label><input class="relationship checkbox" type="checkbox" name="relationshipToCheck" value="g" {{isChecked}}/> Group Members<br></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="location">Location:</label>
+          <select name="location" class="select">
+            <option value="us:0-G-ffs">United States</option>
+          </select>
+        </div>
+        <button class="btn btn-primary config-btn" type="submit">Submit to get started</button>
+    </form>
+    </div>
+  </div>
+  
+</template>
+
+<template name="login">
+  <div class="main container">
+    <div class="main-content">
+      <div class="login-form">
+        <div class="square-mask"></div>
+        <div class="label-wrapper">
+          <label class="label-linkdriver">Link Driver</label>
+        </div>     
+        <div>
+          <button class="btn btn-primary login-btn">Login via Linkedin</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

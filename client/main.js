@@ -39,6 +39,13 @@ Template.configForm.events({
 	}
 });
 
+Template.login.events({
+	'click .login-btn': function() {
+		console.log("Hello");
+		Meteor.loginWithLinkedin();
+	} 
+})
+
 function stripArray(array) {
 	return array.join(",");
 };
@@ -70,4 +77,12 @@ function clearUserInput(event) {
 	console.log(event.target.relationshipToCheck);
 	delete Session.keys["Relationship"];
 
-}
+};
+
+Router.route("/", {
+	template: "login"
+});
+
+Router.route("/index", function(){
+	this.render("configForm");
+})

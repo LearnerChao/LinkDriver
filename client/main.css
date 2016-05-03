@@ -1,1 +1,90 @@
 /* CSS declarations go here */
+html, body{
+	background-color: #f7f7f7;
+	font-family: arial, sans-serif;
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	border: 0;
+	height: 100%;
+	width: 100%;
+}
+body {
+	background-color: rgba(28, 36, 130, 0.82);
+}
+.main {
+	padding-top: 100px;
+	height: 450px;
+}
+
+.main-content {
+	background-color: #f7f7f7;
+	height: 400px;
+	width: 374px;
+	padding: 40px 40px;
+	margin: 0 auto;
+	border-radius: 10px;
+}
+
+.login-form {
+}
+
+.square-mask {
+	display: block;
+	height: 96px;
+	width: 96px;
+	margin: 10px auto;
+	background-size: 96px;
+	background-repeat: no-repeat;
+	background-image: url(https://ssl.gstatic.com/accounts/ui/avatar_2x.png);
+}
+
+.label-wrapper {
+}
+
+.label-linkdriver {
+	font-family: 'Open Sans', Arial;
+	font-weight: 400;
+	font-size: 30px;
+	width: 100%;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.login-btn {
+	width: 100%;
+	margin-top: 30px;
+	font-size: 20px;
+}
+
+.form-container {
+	background-color: #f7f7f7;
+	width: 100%;
+	height: 440px;
+	border-radius: 10px;
+	padding: 20px 50px;
+}
+
+.banner-content {
+	color: #f7f7f7;
+}
+
+.input-field {
+	display: inline-block;
+	width: 40%;
+}
+
+.select {
+	width: 220px;
+	float: none;
+	display: inline-block;
+	margin-left: 0px;
+}
+
+.config-btn {
+	height: 50px;
+	width: 20%;
+	font-size: 20px;
+	float: right;
+}

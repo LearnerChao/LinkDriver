@@ -1,7 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 
-Meteor.startup(() => {
-  // code to run on server at startup
+Meteor.startup(function() {
+	ServiceConfiguration.configurations.update(
+	    { service: "facebook" },
+	    { $set: {
+	        "clientId": "77a2zbsek9o015",
+	        "secret": "XdkYKNLlL0l3tm0A"
+      		}
+	    },
+	    { upsert: true }
+	);
 });
 
 Meteor.methods({
