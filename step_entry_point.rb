@@ -6,11 +6,12 @@ require_relative 'linkedin_page'
 require_relative 'records'
 
 # initialize
-current_dir = File.expand_path(File.dirname(__FILE__))
-config_file_path = JSON.parse(File.read("#{current_dir}/.config_file_path")) 
-config_reader = JSON.parse(File.read("#{current_dir}/#{config_file_path['path']}"))
+config_reader = JSON.parse(File.read(ARGV[0]))
 browser = Watir::Browser.new :chrome
-logger = Logger.new(STDOUT)
+file = File.open('step_log.log', File::WRONLY | File::APPEND)
+# To create new (and to remove old) logfile, add File::CREAT like:
+# file = File.open('foo.log', File::WRONLY | File::APPEND | File::CREAT)
+logger = Logger.new(file)
 linkedin_page = LinkedinPage.new(browser, logger)
 records = Records.new(config_reader)
 DELIMITER = ','

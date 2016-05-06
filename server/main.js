@@ -1,37 +1,48 @@
 import { Meteor } from 'meteor/meteor';
 
 Meteor.startup(function() {
-	ServiceConfiguration.configurations.update(
-	    { service: "facebook" },
-	    { $set: {
-	        "clientId": "77a2zbsek9o015",
-	        "secret": "XdkYKNLlL0l3tm0A"
-      		}
-	    },
-	    { upsert: true }
-	);
+	var Future = Npm.require("fibers/future");
+	var exec = Npm.require('child_process').exec;
+
+	Meteor.methods({
+		'loadConfigJSON': function() {
+			var configJSON = {};
+			configJSON = JSON.parse(Assets.getText("properties.config.json.template"));
+			return configJSON;
+		},
+		'generateConfigJSON': function(configJSON) {
+			console.log(JSON.stringify("Generating Config JSON for user: " + configJSON.login.username));
+			var jsonfile = require('jsonfile');
+			var fileName = "properties.config." + configJSON.login.username + "." + Date.now() + ".json";
+			var file = process.env.PWD + '/private/' + fileName;
+
+			jsonfile.writeFile(file, configJSON, function (err){
+				console.error(err);
+			});
+
+			return file;
+		},
+		'runRuby': function(configFile) {
+			this.unblock();
+			var future = new Future();
+			var dir = process.env.PWD + '/step_entry_point.rb'
+
+			var command = "ruby " + dir + " " + configFile;
+			console.log(command);
+			exec(command, function(error, stdout, stderr){
+				if(error) {
+					console.log(error);
+					throw new Meteor.Error(500, command + " failed");
+				}
+				future.return(stdout.toString());
+			});
+			return future.wait();
+	  		// cmd = Meteor.wrapAsync(exec);
+	  		
+	  		// res = cmd(command);
+	  		// return res;
+		}
+	});
 });
 
-Meteor.methods({
-	'loadConfigJSON': function() {
-		var configJSON = {};
-		configJSON = JSON.parse(Assets.getText("properties.config.json.template"));
-		return configJSON;
-	},
-	'generateConfigJSON': function(configJSON) {
-		console.log(JSON.stringify("Generating Config JSON for user: " + configJSON));
-		var jsonfile = require('jsonfile');
-		var file = process.env.PWD + '/private/properties.config.json';
 
-		jsonfile.writeFile(file, configJSON, function (err){
-			console.error(err);
-		});
-	},
-	'runRuby': function() {
-		exec = Npm.require('child_process').exec;
-  		cmd = Meteor.wrapAsync(exec);
-  		var dir = process.env.PWD + '/step_entry_point.rb'
-  		res = cmd("ruby " + dir);
-  		return res;
-	}
-});

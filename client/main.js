@@ -18,14 +18,15 @@ Template.configForm.events({
 		Meteor.call('loadConfigJSON', function(error, result) {
 			var configJSON = getUserInput(event, result);
 			clearUserInput(event);
-			Meteor.call('generateConfigJSON', configJSON, function() {
-				try {
-				  Meteor.call('runRuby');
-				} catch (e) {
-				  console.log(e);
-				}	
+			Meteor.call('generateConfigJSON', configJSON, function(error, result){
+				if(error) {
+					console.err(error);
+				} else {
+					Meteor.call('runRuby', result, function (err, response) {
+  						console.log(response);
+  					});
+				}
 			});
-			
 		});
 	},
 	'click .relationship': function(event) {
