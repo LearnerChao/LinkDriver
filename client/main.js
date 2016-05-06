@@ -19,7 +19,11 @@ Template.configForm.events({
 			var configJSON = getUserInput(event, result);
 			clearUserInput(event);
 			Meteor.call('generateConfigJSON', configJSON, function() {
-				Meteor.call('runRuby');
+				try {
+				  Meteor.call('runRuby');
+				} catch (e) {
+				  console.log(e);
+				}	
 			});
 			
 		});
@@ -78,11 +82,3 @@ function clearUserInput(event) {
 	delete Session.keys["Relationship"];
 
 };
-
-Router.route("/", {
-	template: "login"
-});
-
-Router.route("/index", function(){
-	this.render("configForm");
-})
