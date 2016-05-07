@@ -8,7 +8,8 @@ require_relative 'records'
 # initialize
 config_reader = JSON.parse(File.read(ARGV[0]))
 browser = Watir::Browser.new :chrome
-file = File.open('step_log.log', File::WRONLY | File::APPEND)
+current_dir = File.expand_path(File.dirname(__FILE__))
+file = File.open(ARGV[1], File::WRONLY | File::APPEND | File::CREAT)
 # To create new (and to remove old) logfile, add File::CREAT like:
 # file = File.open('foo.log', File::WRONLY | File::APPEND | File::CREAT)
 logger = Logger.new(file)

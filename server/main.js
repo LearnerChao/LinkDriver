@@ -25,14 +25,13 @@ Meteor.startup(function() {
 		'runRuby': function(configFile) {
 			this.unblock();
 			var future = new Future();
-			var dir = process.env.PWD + '/step_entry_point.rb'
-
-			var command = "ruby " + dir + " " + configFile;
+			var dir = process.env.PWD + '/step_entry_point.rb';
+			var log = process.env.PWD + '/private/step_log.log';
+			var command = "ruby " + dir + " " + configFile + " " + log;
 			console.log(command);
 			exec(command, function(error, stdout, stderr){
 				if(error) {
 					console.log(error);
-					throw new Meteor.Error(500, command + " failed");
 				}
 				future.return(stdout.toString());
 			});
