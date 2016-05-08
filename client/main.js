@@ -7,17 +7,16 @@ Template.configForm.helpers({
 	'isChecked': function() {
 		var value = $(this).value;
 		var relations = Session.get("Relationship");
-		console.log(relations);
 		return  (relations && (relations.indexOf(value) >= 0)) ? "checked" : "";
 	}
 });
 
 Template.configForm.events({
-	'submit form': function(event) {
+	'submit form': function(event, template) {
 		event.preventDefault();
 		Meteor.call('loadConfigJSON', function(error, result) {
 			var configJSON = getUserInput(event, result);
-			clearUserInput(event);
+			clearUserInput(template);
 			Meteor.call('generateConfigJSON', configJSON, function(error, result){
 				if(error) {
 					console.err(error);
@@ -33,7 +32,8 @@ Template.configForm.events({
 		if(Session.get("Relationship")) {
 			var relations = Session.get("Relationship").slice();
 			if($(event.target).is(":checked")) {
-				relations.push(event.target.value);				
+				relations.push(event.target.value);	
+				$(event.target).att			
 			} else {
 				relations.splice(relations.indexOf(event.target.value),1);
 			}
@@ -46,7 +46,6 @@ Template.configForm.events({
 
 Template.login.events({
 	'click .login-btn': function() {
-		console.log("Hello");
 		Meteor.loginWithLinkedin();
 	} 
 })
@@ -67,19 +66,7 @@ function getUserInput(event, result) {
 	return returnJSON;
 };
 
-function clearUserInput(event) {
-	event.target.username.value = "";
-	event.target.password.value = "";
-	event.target.keywords.value = "";
-	event.target.type.value = "People";
-
-	var checkBoxes = event.target.relationshipToCheck;
-	for(var index in checkBoxes) {
-		if(checkBoxes.hasOwnProperty(index)) {
-			$(this).prop("checked", false);
-		}
-	} 
-	console.log(event.target.relationshipToCheck);
+function clearUserInput(template) {
+	template.find("form").reset();
 	delete Session.keys["Relationship"];
-
 };
