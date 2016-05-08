@@ -14,7 +14,7 @@ Meteor.startup(function() {
 			console.log(JSON.stringify("Generating Config JSON for user: " + configJSON.login.username));
 			var jsonfile = require('jsonfile');
 			var fileName = "properties.config." + configJSON.login.username + "." + Date.now() + ".json";
-			var file = process.env.PWD + '/private/' + fileName;
+			var file = process.env.PWD + '/private/.#configs/' + fileName;
 
 			jsonfile.writeFile(file, configJSON, function (err){
 				console.error(err);
@@ -26,7 +26,7 @@ Meteor.startup(function() {
 			this.unblock();
 			var future = new Future();
 			var dir = process.env.PWD + '/step_entry_point.rb';
-			var log = process.env.PWD + '/private/step_log.log';
+			var log = process.env.PWD + '/private/.#activity/step_log.log';
 			var command = "ruby " + dir + " " + configFile + " " + log;
 			console.log(command);
 			exec(command, function(error, stdout, stderr){
