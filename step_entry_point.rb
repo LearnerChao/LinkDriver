@@ -148,4 +148,5 @@ while true
 end
 browser.close
 records.file_close
+logger.close
 
