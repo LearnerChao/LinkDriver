@@ -17,7 +17,7 @@ class LinkedinPage
 	end
 
 	def login_page_submit
-		@browser.button(:name => 'submit')
+		@browser.button(:id => 'login-submit')
 	end
 
 	def index_page
