@@ -75,6 +75,14 @@ class LinkedinPage
 		@browser.checkbox(:id => location_id)		
 	end
 
+	def search_industry industry_id
+	    @browser.checkbox(:id => industry_id)
+	end
+
+	def industry_toggle
+	    @browser.li(:id => "facet-I").button
+	end
+
 	def search_loading
 		@browser.div(:id => 'srp_main_').class_name == 'loading'
 	end

@@ -7,7 +7,7 @@ require_relative 'records'
 
 # initialize
 config_reader = JSON.parse(File.read(ARGV[0]))
-browser = Watir::Browser.new :chrome
+browser = Watir::Browser.new :firefox
 current_dir = File.expand_path(File.dirname(__FILE__))
 file = File.open(ARGV[1], File::WRONLY | File::APPEND | File::CREAT)
 # To create new (and to remove old) logfile, add File::CREAT like:
@@ -41,6 +41,12 @@ filters.each do |key, value|
 		linkedin_page.search_type_selector(value).click unless value.nil?
 		Watir::Wait.while {linkedin_page.search_loading}
 		logger.info("set type as #{value}")
+    when 'location'
+        value.split(DELIMITER).each do |val|
+            linkedin_page.search_locations(val).set
+            logger.info("set location as #{val}")
+            Watir::Wait.while {linkedin_page.search_loading}
+        end
 	when 'relationship_to_uncheck'
 		value.split(DELIMITER).each do |val|
 			linkedin_page.search_relationship_selector(val).clear
@@ -53,12 +59,15 @@ filters.each do |key, value|
 			logger.info("checked relationship #{val}")
 			Watir::Wait.while {linkedin_page.search_loading}
 		end		
-	when 'location'
-		value.split(DELIMITER).each do |val|
-			linkedin_page.search_locations(val).set
-			logger.info("set location as #{val}")
-			Watir::Wait.while {linkedin_page.search_loading}
-		end	
+
+	#when 'industry'
+	 #   linkedin_page.industry_toggle.click
+	  #  sleep 1
+	   # value.split(DELIMITER).each do |val|
+	    #    linkedin_page.search_industry(val).set
+	     #   logger.info("set industry as #{val}")
+          #  Watir::Wait.while {linkedin_page.search_loading}
+	    # end
 	else
 		logger.warn("Some of your filters are ignored")
 	end
